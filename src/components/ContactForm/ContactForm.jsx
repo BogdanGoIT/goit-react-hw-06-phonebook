@@ -33,6 +33,8 @@ export function ContactForm() {
         const namesArray = contacts.map(contact => contact.nameValue);
         console.log(namesArray);
 
+        const form = e.target;
+
         const nameValue = e.target.elements.name.value;  
         const numberValue = e.target.elements.number.value;
 
@@ -45,6 +47,8 @@ export function ContactForm() {
             numberValue,
             id: nanoid(),
         }));
+
+        form.reset()
 
     }
 
