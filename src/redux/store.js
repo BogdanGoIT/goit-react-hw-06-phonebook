@@ -1,31 +1,57 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import {  configureStore, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     items: [],
     filter: ''
 }
 
-export const addItems = createAction('contact/addItems');
-export const deleteItems = createAction('contact/deleteItems')
-
-console.log(addItems.toString())
-
-const myReducer = createReducer(initialState, {
-    [addItems]: (state, action) => {
-        return {
-            ...state,
-            items: [...state.items, action.payload],
+const myValueSlice = createSlice({
+    name: 'contacts',
+    initialState,
+    reducers: {
+        addItems(state, action) {
+            return {
+                ...state,
+                items: [...state.items, action.payload],
+            }
+        },
+        deleteItems(state, action) {
+            return {
+                ...state,
+                items: state.items.filter(item => item.id !== action.payload),
+            }
+        },
+        addFilter(state, action) {
+            state.filter = action.payload;
         }
     },
-    [deleteItems]: (state, action) => {
-        return state.items.filter(item => item.id !== action.payload);
-    }
-});
+})
+
+export const { addItems, deleteItems, addFilter } = myValueSlice.actions;
+
+// export const addItems = createAction('contact/addItems');
+// export const deleteItems = createAction('contact/deleteItems');
+
+// console.log(addItems.toString())
+
+// const myReducer = createReducer(initialState, {
+//     [addItems]: (state, action) => {
+//         return {
+//             ...state,
+//             items: [...state.items, action.payload],
+//         }
+//     },
+//     [deleteItems]: (state, action) => {
+//         return {
+//             ...state,
+//             items: state.items.filter(item => item.id !== action.payload),
+//         }
+//     }
+// });
 
 export const store = configureStore({
     reducer: {
-      contacts: myReducer
+      contacts: myValueSlice.reducer,
   }
 });
 
