@@ -1,8 +1,8 @@
 // глупый компонент который просто рендерит
 
 import { useSelector,  useDispatch } from "react-redux"
+import { deleteItems } from "redux/contactsSlice";
 import { getContacts, getFilter } from "redux/selectors";
-import { deleteItems } from "redux/store";
 
 export const ContactList = () => {
     const dispatch = useDispatch();
